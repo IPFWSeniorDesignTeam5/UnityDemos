@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{31C771E2-F3F9-E385-3393-C135A92C8055}</ProjectGuid>
+    <ProjectGuid>{F61FACB9-EBC1-52E3-C24B-CFD4226567AF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,10 +46,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\ChangeSceneAfterSeconds.cs" />
-     <Compile Include="Assets\Scripts\SceneManagement\CreditsState.cs" />
-     <Compile Include="Assets\Scripts\SceneManagement\MainMenuState.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\ChangeSceneAfterSeconds.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\MapSceneManager.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\SceneManagement.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\States\CreditsState.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\States\MainMenuState.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\States\MapOverviewState.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity5_3/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
