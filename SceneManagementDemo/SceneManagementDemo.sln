@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{E5F11893-AE95-48CB-1851-06610A55958B}") = "SceneManagementDemo", "Assembly-CSharp.csproj", "{F61FACB9-EBC1-52E3-C24B-CFD4226567AF}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneManagementDemo", "Assembly-CSharp.csproj", "{F61FACB9-EBC1-52E3-C24B-CFD4226567AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

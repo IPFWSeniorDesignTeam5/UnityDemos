@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Tribal
 {
@@ -7,6 +8,7 @@ namespace Tribal
 		int Population;
 
 		// TODO: Add list of raw materials
+		List<RawMaterial> rawMaterials;
 
 		// TODO: Add list of finished goods.
 

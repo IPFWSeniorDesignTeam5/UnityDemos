@@ -14,6 +14,13 @@ namespace Tribal
 	public enum FinishedGoodType
 	{
 		// TODO: Add all finished good types
+		Homes,
+		Tents,
+		Pottery,
+		Tools,
+		Jewelry,
+		Clothes,
+		Fire
 	}
 
 	public class RawMaterial  {
@@ -133,7 +140,6 @@ namespace Tribal
 		private static Dictionary<RawMaterialType, int> GetProductionRequirements( FinishedGoodType goodType )
 		{
 			return null;
-
 			// TODO: Based on tables in tech. design document, create switch statement to return new dictionary object with material (type and count of each) required to create givent goodType.
 		}
 

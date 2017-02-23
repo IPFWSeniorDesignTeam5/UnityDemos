@@ -7,6 +7,7 @@ public class MapSceneManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Random.InitState (0);
 		VRSceneManager.LoadSceneState( this.GetComponent<MapOverviewState>() );
 	}
 	
