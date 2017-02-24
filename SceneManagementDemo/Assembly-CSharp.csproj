@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\Community.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
      <Compile Include="Assets\Scripts\Map.cs" />
+     <Compile Include="Assets\Scripts\MapBuilderEditor.cs" />
      <Compile Include="Assets\Scripts\Materials.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\ChangeSceneAfterSeconds.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\MapSceneManager.cs" />
@@ -57,6 +58,7 @@
      <Compile Include="Assets\Scripts\SceneManagement\States\MainMenuState.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\States\MapOverviewState.cs" />
      <Compile Include="Assets\Scripts\SeasonTimer.cs" />
+     <Compile Include="Assets\Scripts\Skill.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

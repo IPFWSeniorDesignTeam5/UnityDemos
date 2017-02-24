@@ -27,7 +27,7 @@ namespace Tribal
 
 			for( short i = 0; i < 6; i++ )
 			{
-				if( null != sides[i] && null == m_Sides[i] ) 
+				if( null != sides[i] ) 
 				{
 					m_Sides[i] = sides[i];
 					sides[i].SetSide( LinkedSide(i), this );
@@ -113,6 +113,8 @@ namespace Tribal
 	}
 
 	public static class Map  {
+		private static List<MapNode> m_MapNodes = new List<MapNode>();
+
 		public static void Expand( MapNode node, short addRings )
 		{
 			MapNode n = node;
@@ -121,16 +123,33 @@ namespace Tribal
 
 			newNodes = node.Expand();
 
+			if (!m_MapNodes.Contains (node))
+				m_MapNodes.Add (node);
+
 			for( int i = 0; i < addRings; i++ )
 			{
 				nextNodes.Clear ();
 
 				foreach (MapNode newNode in newNodes)
-					nextNodes.InsertRange (0, newNode.Expand ());
+					nextNodes.InsertRange (nextNodes.Count, newNode.Expand ());
 
 				newNodes.Clear();
 				newNodes.InsertRange (0, nextNodes);
+				m_MapNodes.InsertRange (m_MapNodes.Count, nextNodes);
 			}
+
+			if (m_MapNodes.Count > 0)
+				Debug.Log ("Total Map Nodes: " + m_MapNodes.Count);
+		}
+
+		private static void DestroyMap()
+		{
+			
+		}
+
+		private static void RenderMap()
+		{
+			
 		}
 	}
 }
