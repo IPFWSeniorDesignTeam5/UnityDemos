@@ -1,17 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Skill.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Materials.cs">
     <Files>
-      <File FileName="Assets\Scripts\SceneManagement\SceneManagement.cs" Line="25" Column="3" />
-      <File FileName="Assets\Scripts\SceneManagement\States\MapOverviewState.cs" Line="36" Column="3" />
-      <File FileName="Assets\Scripts\SceneManagement\MapSceneManager.cs" Line="15" Column="18" />
-      <File FileName="Assets\Scripts\Family.cs" Line="33" Column="3" />
-      <File FileName="Assets\Scripts\SeasonTimer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Materials.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Community.cs" Line="23" Column="3" />
-      <File FileName="Assets\Scripts\Map.cs" Line="147" Column="4" />
-      <File FileName="Assets\Scripts\MapBuilderEditor.cs" Line="10" Column="32" />
-      <File FileName="Assets\Scripts\Skill.cs" Line="26" Column="1" />
+      <File FileName="Assets\Scripts\SceneManagement\States\MapOverviewState.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Family.cs" Line="28" Column="14" />
+      <File FileName="Assets\Scripts\SeasonTimer.cs" Line="25" Column="63" />
+      <File FileName="Assets\Scripts\Materials.cs" Line="135" Column="80" />
+      <File FileName="Assets\Scripts\Community.cs" Line="19" Column="30" />
+      <File FileName="Assets\Scripts\Map.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MapBuilderEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Skill.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\FamilyControlScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\HexControlScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\BillboardToCamera.cs" Line="11" Column="59" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,27 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using UnityEngine;
 
 namespace Tribal
 {
-	public class Community {
-		List<Family> m_Families;
+	public static class Community {
+		private static List<Family> m_Families = new List<Family>();
 
-		public Community()
+		private static List<string> FamilyPreNames = new List<string> { "Lum", "Trot", "Rruli", "Eim", "Arro", "Whoe", "Sh'o", "Uro'", "Yya'", "M'ol" };
+		private static List<string> FamilySufNames = new List<string> { "ma", "eeami", "tiaro", "mon", "ogo", "tek", "ram", "soon", "lee", "ba" };
+
+		public static short StartingFamilySkill{ get; private set; }
+
+		static Community()
 		{
+			StartingFamilySkill = 100;
 			m_Families = new List<Family>();
 			SeasonTimer.SeasonEndEvent += SeasonEnded;
 		}
 
-		public void AddFamily( Family addNew )
+		public static Family GetFamilyByNode( MapNode n )
+		{
+			return m_Families.Where( x => x.StartingNode == n ).FirstOrDefault();
+		}
+
+		public static string GetNewFamilyName ()
+		{
+			short i, j;
+			short tried = 0;
+			string newName = "";
+
+			do
+			{
+				i = (short)Random.Range( 0, FamilyPreNames.Count - 1 );
+				j = (short)Random.Range( 0, FamilySufNames.Count - 1 );
+				newName = FamilyPreNames[i] + FamilySufNames[j];
+				tried ++;
+				if( tried > 20 )
+				{
+					Debug.LogError( "Failed to get distinct random family name." );
+					return "Unknown";
+				}
+			} while ( m_Families.Where( x => x.FamilyName == newName ).Count() > 0 );
+
+			return newName;
+		}
+
+		public static void AddFamily( Family addNew )
 		{
 			if (null != addNew)
+			{
 				m_Families.Add (addNew);
+			}
 			else
 				Debug.LogError ("Null family added to Community.");
 		}
 
-		public void SeasonEnded( SeasonTimer.SeasonEndEventArgs e )
+		public static void SeasonEnded( SeasonTimer.SeasonEndEventArgs e )
 		{
 			// Roll all environmental events for the last season
 

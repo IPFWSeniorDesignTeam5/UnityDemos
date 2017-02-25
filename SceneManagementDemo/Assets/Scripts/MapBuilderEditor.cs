@@ -2,17 +2,27 @@
 using System.Collections;
 using UnityEditor;
 
-[CustomEditor(typeof(ObjectBuilderScript))]
-public class ObjectBuilderEditor : Editor
+[CustomEditor(typeof(MapBuilderScript))]
+public class MapBuilderEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
         
-        ObjectBuilderScript myScript = (ObjectBuilderScript)target;
-        if(GUILayout.Button("Build Object"))
+		MapBuilderScript myScript = (MapBuilderScript)target;
+        if(GUILayout.Button("Destroy Map"))
         {
-            myScript.BuildObject();
+            myScript.DestroyMap();
+        }
+
+		if(GUILayout.Button("Create Map"))
+        {
+            myScript.CreateMap();
+        }
+
+		if(GUILayout.Button("Add Ring"))
+        {
+            myScript.AddRing();
         }
     }
 }

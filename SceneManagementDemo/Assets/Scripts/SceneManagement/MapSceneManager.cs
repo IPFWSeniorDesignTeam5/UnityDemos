@@ -9,6 +9,7 @@ public class MapSceneManager : MonoBehaviour {
 	void Start () {
 		Random.InitState (0);
 		VRSceneManager.LoadSceneState( this.GetComponent<MapOverviewState>() );
+		DontDestroyOnLoad( gameObject );
 	}
 	
 	// Update is called once per frame
