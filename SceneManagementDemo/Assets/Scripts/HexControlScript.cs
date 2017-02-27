@@ -23,20 +23,24 @@ public class HexControlScript : MonoBehaviour {
 		HexMapNode = node;
 	}
 
-	public void SwitchSpotlight( bool lightEnabled )
+	public void SetSelected( bool isSelected )
 	{
-		if( lightEnabled )
+		if( isSelected )
 		{
-			lastOnSwitch = Time.time;
-
 			if( !Spotlight.enabled && null != Highlighted )
 				Highlighted();
 		}
 		else
-			if( null != Dehighlighted )
+			if( Spotlight.enabled && null != Dehighlighted )
 				Dehighlighted();
-		
-		Spotlight.enabled = lightEnabled;
+
+		SetSpotlightEnabled( isSelected );
+	}
+
+	public void SetSpotlightEnabled( bool isEnabled )
+	{
+		if( isEnabled ) lastOnSwitch = Time.time;
+		Spotlight.enabled = isEnabled;
 	}
 
 	// Use this for initialization
@@ -46,7 +50,7 @@ public class HexControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if( Spotlight.enabled && (Time.time - lastOnSwitch > LightLingerTime ) )
-			SwitchSpotlight( false );
+		if( Spotlight.enabled && Time.time - lastOnSwitch > LightLingerTime  )
+			SetSelected( false );
 	}
 }

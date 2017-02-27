@@ -16,11 +16,30 @@ namespace Tribal
 
 		delegate void FamilyEventListener();
 
+		public List<MapNode> FamilyNodes {get; private set;}
+		public MapNode StartingNode {get; private set; }
+
+		public string FamilyName {get; private set;}
+
 		event FamilyEventListener FamilyEvent;
 
-		public Family ()
+		public Family (MapNode start)
 		{
+			FamilyName = Community.GetNewFamilyName();
+			FamilyNodes = new List<MapNode>();
+			StartingNode = start;
+			FamilyNodes.Add( StartingNode );
+
+			Community.AddFamily( this );
+
 			SeasonTimer.SeasonEndEvent += FamilySeasonEnd;
+		}
+
+		public void AddFamilyNode( MapNode n )
+		{
+			if( null == n ) return;
+
+			FamilyNodes.Add( n );
 		}
 
 		private void FamilySeasonEnd( SeasonTimer.SeasonEndEventArgs e )

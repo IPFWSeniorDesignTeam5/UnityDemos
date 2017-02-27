@@ -9,8 +9,8 @@ namespace Tribal
 	public static class Community {
 		private static List<Family> m_Families = new List<Family>();
 
-		private static List<string> FamilyPreNames = new List<string> { "Lum", "Trot", "Rruli", "Eim", "Arro", "Whoe", "Sh'o", "Uro'", "Yya'", "M'ol" };
-		private static List<string> FamilySufNames = new List<string> { "ma", "eeami", "tiaro", "mon", "ogo", "tek", "ram", "soon", "lee", "ba" };
+		private static string [] FamilyPreNames = new string[] { "Lum", "Trot", "Rruli", "Eim", "Arro", "Whoe", "Sh'o", "Uro'", "Yya'", "M'ol" };
+		private static string [] FamilySufNames = new string[] { "ma", "eeami", "tiaro", "mon", "ogo", "tek", "ram", "soon", "lee", "ba" };
 
 		public static short StartingFamilySkill{ get; private set; }
 
@@ -23,7 +23,7 @@ namespace Tribal
 
 		public static Family GetFamilyByNode( MapNode n )
 		{
-			return m_Families.Where( x => x.StartingNode == n ).FirstOrDefault();
+			return m_Families.Where( x => x.FamilyNodes.Contains(n)).FirstOrDefault();
 		}
 
 		public static string GetNewFamilyName ()
@@ -34,11 +34,11 @@ namespace Tribal
 
 			do
 			{
-				i = (short)Random.Range( 0, FamilyPreNames.Count - 1 );
-				j = (short)Random.Range( 0, FamilySufNames.Count - 1 );
+				i = (short)Random.Range( 0, FamilyPreNames.Length - 1 );
+				j = (short)Random.Range( 0, FamilySufNames.Length - 1 );
 				newName = FamilyPreNames[i] + FamilySufNames[j];
 				tried ++;
-				if( tried > 20 )
+				if( tried > 50 )
 				{
 					Debug.LogError( "Failed to get distinct random family name." );
 					return "Unknown";

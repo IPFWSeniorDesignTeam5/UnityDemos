@@ -16,9 +16,11 @@ namespace Tribal
 	{
 		public  GameObject gameObject {get; private set;}
 		private  GameObject m_Prefab;
-		private  MapNode [] m_Sides;
+		public  MapNode [] Sides {get; private set;}
 		private  Vector3 m_Position;
 		private  Quaternion m_Rotation;
+
+		public short PrefabVariation {get; private set;}
 
 		public MapNodeType NodeType { get; private set; }
 
@@ -39,16 +41,20 @@ namespace Tribal
 			int angle = Random.Range (0, 7);
 
 			m_Position = pos;
-			m_Sides = new MapNode[6];
+			Sides = new MapNode[6];
 			m_Rotation = Quaternion.AngleAxis( 60f * angle, Vector3.up );
+			PrefabVariation = 0;
 
 			Map.AddMapNode( this );
 
 			InstantiatePrefab();
 		}
 
-		public HexControlScript ChangeNodeType( MapNodeType newType )
+		public HexControlScript ChangeNode( MapNodeType newType, short variation = 0 )
 		{
+			if( newType == NodeType && variation == PrefabVariation )
+				return gameObject.GetComponent<HexControlScript>();
+
 			DestroyGameObject();
 
 			switch( newType )
@@ -58,12 +64,12 @@ namespace Tribal
 				break;
 
 				case MapNodeType.Family:
-					m_Prefab = Map.GetFamilyPrefab( 0 );
+					m_Prefab = Map.GetFamilyPrefab( variation );
 					new Family(this);
 				break;
 
 				case MapNodeType.Household:
-					m_Prefab = Map.GetFamilyPrefab( 0 );
+					m_Prefab = Map.GetFamilyPrefab( variation );
 				break;
 
 				case MapNodeType.SeasonTimer:
@@ -72,6 +78,7 @@ namespace Tribal
 				break;
 			}
 
+			PrefabVariation = variation;
 			NodeType = newType;
 			InstantiatePrefab();
 
@@ -99,6 +106,7 @@ namespace Tribal
 			switch( NodeType )
 			{
 				case MapNodeType.Family:
+				case MapNodeType.Household:
 					FamilyControlScript fControl = gameObject.GetComponent<FamilyControlScript>();
 
 					if( null != fControl )
@@ -116,7 +124,7 @@ namespace Tribal
 			{
 				if( null != sides[i] ) 
 				{
-					m_Sides[i] = sides[i];
+					Sides[i] = sides[i];
 					sides[i].SetSide( LinkedSide(i), this );
 				}
 			}
@@ -138,61 +146,61 @@ namespace Tribal
 
 		public void SetSide( short side, MapNode node )
 		{
-			m_Sides[side] = node;
+			Sides[side] = node;
 		}
 
 		public List<MapNode> Expand()
 		{
 			bool [] lbz_new = new bool[] { false, false, false, false, false, false };
 
-			if( null == m_Sides[0] ) {
-				m_Sides[0] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x + 7.5f, m_Position.y, m_Position.z + 4.3f ), MapNodeType.Barren );
+			if( null == Sides[0] ) {
+				Sides[0] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x + 7.5f, m_Position.y, m_Position.z + 4.3f ), MapNodeType.Barren );
 				lbz_new[0] = true;
 			}
-			if( null == m_Sides[1] ) {
-				m_Sides[1] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x + 7.5f, m_Position.y, m_Position.z - 4.3f ), MapNodeType.Barren );
+			if( null == Sides[1] ) {
+				Sides[1] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x + 7.5f, m_Position.y, m_Position.z - 4.3f ), MapNodeType.Barren );
 				lbz_new[1] = true;
 			}
-			if( null == m_Sides[2] ) {
-				m_Sides[2] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x, m_Position.y, m_Position.z - 8.66f ), MapNodeType.Barren );
+			if( null == Sides[2] ) {
+				Sides[2] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x, m_Position.y, m_Position.z - 8.66f ), MapNodeType.Barren );
 				lbz_new[2] = true;
 			}
-			if( null == m_Sides[3] ) {
-				m_Sides[3] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x - 7.5f, m_Position.y, m_Position.z - 4.3f ), MapNodeType.Barren );
+			if( null == Sides[3] ) {
+				Sides[3] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x - 7.5f, m_Position.y, m_Position.z - 4.3f ), MapNodeType.Barren );
 				lbz_new[3] = true;
 			}
-			if( null == m_Sides[4] ) {
-				m_Sides[4] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x - 7.5f, m_Position.y, m_Position.z + 4.3f ), MapNodeType.Barren );
+			if( null == Sides[4] ) {
+				Sides[4] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x - 7.5f, m_Position.y, m_Position.z + 4.3f ), MapNodeType.Barren );
 				lbz_new[4] = true;
 			}
-			if( null == m_Sides[5] ) {
-				m_Sides[5] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x, m_Position.y, m_Position.z + 8.66f ), MapNodeType.Barren );
+			if( null == Sides[5] ) {
+				Sides[5] = new MapNode(Map.GetRandomDefaultPrefab(), new Vector3( m_Position.x, m_Position.y, m_Position.z + 8.66f ), MapNodeType.Barren );
 				lbz_new[5] = true;
 			}
 
 			if( lbz_new[0] )
-				m_Sides[0].Initialize( new MapNode[] { null, null, m_Sides[1], this, m_Sides[5], null } );
+				Sides[0].Initialize( new MapNode[] { null, null, Sides[1], this, Sides[5], null } );
 			
 			if( lbz_new[1] )
-				m_Sides[1].Initialize( new MapNode[] { null, null, null, m_Sides[2], this, m_Sides[0] } );
+				Sides[1].Initialize( new MapNode[] { null, null, null, Sides[2], this, Sides[0] } );
 			
 			if( lbz_new[2] ) 
-				m_Sides[2].Initialize( new MapNode[] { m_Sides[1], null, null, null, m_Sides[3], this } );
+				Sides[2].Initialize( new MapNode[] { Sides[1], null, null, null, Sides[3], this } );
 			
 			if( lbz_new[3] )
-				m_Sides[3].Initialize( new MapNode[] { this, m_Sides[2], null, null, null, m_Sides[4] } );
+				Sides[3].Initialize( new MapNode[] { this, Sides[2], null, null, null, Sides[4] } );
 			
 			if( lbz_new[4] ) 
-				m_Sides[4].Initialize( new MapNode[] { m_Sides[5], this, m_Sides[3], null, null, null } );
+				Sides[4].Initialize( new MapNode[] { Sides[5], this, Sides[3], null, null, null } );
 			
 			if( lbz_new[5] ) 
-				m_Sides[5].Initialize( new MapNode[] { null, m_Sides[0], this, m_Sides[4], null, null } );
+				Sides[5].Initialize( new MapNode[] { null, Sides[0], this, Sides[4], null, null } );
 
 			List<MapNode> returnNew = new List<MapNode> ();
 
 			for (int i = 0; i < 6; i++) {
 				if (lbz_new [i])
-					returnNew.Add (m_Sides [i]);
+					returnNew.Add (Sides [i]);
 			}
 
 			return returnNew;
@@ -200,12 +208,17 @@ namespace Tribal
 	}
 
 	public static class Map  {
-		private static List<MapNode> m_MapNodes = new List<MapNode>();
+		public static List<MapNode> Nodes {get; private set;}
 		private static List<MapNode> m_OuterNodes = new List<MapNode>();
 		private static List<GameObject> DefaultPrefabs  = new List<GameObject>();
 		private static List<GameObject> FamilyPrefabs = new List<GameObject>();
 
 		public static MapNode m_CenterNode { get; private set;}
+
+		static Map ()
+		{
+			Nodes = new List<MapNode>();
+		}
 
 		public static void Initialize( MapNode centerNode )
 		{
@@ -214,7 +227,7 @@ namespace Tribal
 
 		public static void AddMapNode( MapNode n )
 		{
-			m_MapNodes.Add( n );
+			Nodes.Add( n );
 		}
 
 		public static void AddDefaultPrefab( GameObject def )
@@ -275,19 +288,19 @@ namespace Tribal
 
 			m_OuterNodes = nextNodes;
 
-			if (m_MapNodes.Count > 0)
-				Debug.Log ("Total Map Nodes: " + m_MapNodes.Count);
+			if (Nodes.Count > 0)
+				Debug.Log ("Total Map Nodes: " + Nodes.Count);
 		}
 
 		public static void DestroyMap()
 		{
-			foreach( MapNode n in m_MapNodes )
+			foreach( MapNode n in Nodes )
 				n.DestroyGameObject();
 		}
 
 		public static void RenderMap()
 		{
-			foreach( MapNode n in m_MapNodes )
+			foreach( MapNode n in Nodes )
 				n.InstantiatePrefab();
 		}
 	}
