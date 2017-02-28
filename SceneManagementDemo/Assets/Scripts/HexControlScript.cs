@@ -50,7 +50,6 @@ public class HexControlScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if( Spotlight.enabled && Time.time - lastOnSwitch > LightLingerTime  )
-			SetSelected( false );
+
 	}
 }
