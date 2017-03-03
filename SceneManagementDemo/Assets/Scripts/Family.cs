@@ -7,19 +7,32 @@ namespace Tribal
 	{
 		int Population;
 
-		// TODO: Add list of raw materials
-		List<RawMaterial> rawMaterials;
-
-		// TODO: Add list of finished goods.
-
-		// TODO: Create a property "TotalWealth" that returns the total wealth of all raw materials and finished goods
-
-		delegate void FamilyEventListener();
+        public List<RawMaterial> Materials { get; private set;}
+        public List<FinishedGood> FinishedGoods { get; private set; }
 
 		public List<MapNode> FamilyNodes {get; private set;}
 		public MapNode StartingNode {get; private set; }
 
 		public string FamilyName {get; private set;}
+
+        public int TotalWealth
+        {
+            get
+            {
+                int total = 0;
+
+                foreach( RawMaterial r in Materials )
+                	total += r.WealthValue;
+
+                foreach( FinishedGood g in FinishedGoods )
+                	total += g.WealthValue;
+
+                return total;
+            }
+            private set { TotalWealth = value; }
+        }
+
+        delegate void FamilyEventListener();
 
 		event FamilyEventListener FamilyEvent;
 
@@ -29,9 +42,10 @@ namespace Tribal
 			FamilyNodes = new List<MapNode>();
 			StartingNode = start;
 			FamilyNodes.Add( StartingNode );
+			Materials  = new List<RawMaterial>();;
+			FinishedGoods = new List<FinishedGood>();
 
 			Community.AddFamily( this );
-
 			SeasonTimer.SeasonEndEvent += FamilySeasonEnd;
 		}
 
@@ -47,11 +61,16 @@ namespace Tribal
 			if( null != FamilyEvent )
 				FamilyEvent();
 		}
+        
+        public void addRaw(RawMaterial rawMaterial)
+        {
+            Materials.Add(rawMaterial);
+        }
+        public void AddFinishedGood(FinishedGood finishedMaterial)
+        {
+            FinishedGoods.Add(finishedMaterial);
+        }
 
-		// TODO: Create method to add a raw material
-
-		// TODO: Create method to add a finished good
-
-	}
+    }
 }
 
