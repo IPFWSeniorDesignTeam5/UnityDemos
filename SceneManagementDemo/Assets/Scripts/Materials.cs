@@ -28,11 +28,11 @@ namespace Tribal
 	}
 
 	public class RawMaterial  {
-		RawMaterialType MaterialType;
+        public RawMaterialType Type { get; private set; }
 
 		public string Name { 
-			get { 
-				return Enum.GetName (typeof(RawMaterialType), MaterialType); 
+			get {
+                return Enum.GetName(typeof(RawMaterialType), Type); 
 			} 
 			private set { Name = value; } 
 		}
@@ -45,7 +45,7 @@ namespace Tribal
 		/// <param name="typ">Given type to search for.</param>
 		public static List<RawMaterial> GetMaterials( List<RawMaterial> mats, RawMaterialType typ )
 		{
-			return (List<RawMaterial>)mats.Where( x => x.MaterialType == typ );
+            return (List<RawMaterial>)mats.Where(x => x.Type == typ);
 		}
 
         private static int GetRawMaterialWealth(RawMaterialType raw)
@@ -75,16 +75,14 @@ namespace Tribal
         {
             get
             {
-                return GetRawMaterialWealth(MaterialType);
+                return GetRawMaterialWealth(Type);
             }
    			private set {WealthValue = value;}
         }
 
-
-        // TODO: Create constructor that takes RawMaterialType as input.
         public RawMaterial(RawMaterialType materialType)
         {
-			MaterialType = materialType;
+            Type = materialType;
         }
     }
 
@@ -93,7 +91,7 @@ namespace Tribal
 
         List<RawMaterial> Materials;
 
-        public FinishedGoodType GoodType { get; private set; }
+        public FinishedGoodType Type { get; private set; }
 
         public int Tier {get; private set;}
 
@@ -101,7 +99,7 @@ namespace Tribal
         {
             get
             {
-                return Enum.GetName(typeof(FinishedGoodType), GoodType);
+                return Enum.GetName(typeof(FinishedGoodType), Type);
             }
             private set { Name = value; }
         }
@@ -114,9 +112,19 @@ namespace Tribal
         public FinishedGood(FinishedGoodType type, int goodTier)
         {
         	Tier = goodTier;
-            GoodType = type;
+            Type = type;
             Materials = new List<RawMaterial>();
         }
+
+        public static int CanCreate(List<RawMaterial> mats, FinishedGoodType goodType, int tier)
+        {
+            // TODO: Given a list of materials, return the number of FinishedGoods of the given tier that COULD BE produced.
+
+            return 0;
+        }
+
+
+        /// TODO: Add a public static method that takes a List<RawMaterial> and a FinishedGood, and will upgrade a given finished good to the next tier (reducing the materials from the given raw materials list)
 
         public static FinishedGood CreateFromMaterials(List<RawMaterial> mats, FinishedGoodType goodType, int tier)
         {
@@ -167,7 +175,7 @@ namespace Tribal
 
             return returnGood;
         }
-
+        
         /// <summary>
         /// Gets a list of FinishedGood(s) within the given list that match the given type.
         /// </summary>
@@ -176,10 +184,9 @@ namespace Tribal
         /// <param name="typ">Given type to search for.</param>
         List<FinishedGood> GetGoods(List<FinishedGood> goods, FinishedGoodType typ)
         {
-            return (List<FinishedGood>)goods.Where(x => x.GoodType == typ);
+            return (List<FinishedGood>)goods.Where(x => x.Type == typ);
         }
 
-        // TODO: Based on tables in tech. design document, create switch statement to return new dictionary object with material (type and count of each) required to create givent goodType.
         private static Dictionary<RawMaterialType, int> GetProductionRequirements(FinishedGoodType goodType, int tier)
         {
             Dictionary<RawMaterialType, int> finalGoodReqs = new Dictionary<RawMaterialType, int>();
@@ -213,9 +220,8 @@ namespace Tribal
             }
 
             return finalGoodReqs;
-
-
         }
+
         private static float GetTimeToProduce(FinishedGoodType finishedG, int tier)
         {
             switch (finishedG)
@@ -234,14 +240,14 @@ namespace Tribal
 					return 0.1f * tier;
 
             }
-            return -1;
+            return float.MaxValue;
         }
 
         public float TimeToProduce
         {
             get
             {
-                return GetTimeToProduce(GoodType, Tier);
+                return GetTimeToProduce(Type, Tier);
             }
             private set{TimeToProduce = value;}
         }
@@ -252,11 +258,8 @@ namespace Tribal
             {
                 int sumWealth = 0;
 
-                for (int i = 0; i < Materials.Count; i++)
-                {
-                    sumWealth += Materials[i].WealthValue;
-                }
-
+                foreach( RawMaterial m in Materials )
+                    sumWealth += m.WealthValue;
 
                 return sumWealth + (int)(20f * TimeToProduce);
             }

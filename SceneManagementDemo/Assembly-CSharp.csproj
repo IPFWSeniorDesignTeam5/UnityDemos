@@ -49,6 +49,7 @@
      <Compile Include="Assets\Mouselook.cs" />
      <Compile Include="Assets\Scripts\BillboardToCamera.cs" />
      <Compile Include="Assets\Scripts\Community.cs" />
+     <Compile Include="Assets\Scripts\Event.cs" />
      <Compile Include="Assets\Scripts\Family.cs" />
      <Compile Include="Assets\Scripts\FamilyControlScript.cs" />
      <Compile Include="Assets\Scripts\HexControlScript.cs" />
