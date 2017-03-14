@@ -16,8 +16,6 @@ public class FamilyControlScript : MonoBehaviour {
 
 	public Text NameText;
 
-	bool spinning = false;
-
 	[Range(0f, 500f)]
 	public float SpinSpeed = 300f;
 
@@ -54,8 +52,6 @@ public class FamilyControlScript : MonoBehaviour {
 
 	private void TriggerHighlighted( bool is_highlighted )
 	{
-		spinning = is_highlighted;
-
 		HexControlScript hControl = null;
 
 		foreach( MapNode n in FamilyInfo.FamilyNodes )
@@ -66,7 +62,7 @@ public class FamilyControlScript : MonoBehaviour {
 				hControl.gameObject.GetComponent<FamilyControlScript>().SetTextVisible( is_highlighted );
 
 			if( null != hControl )
-				hControl.SetSpotlightEnabled( is_highlighted );
+				hControl.SetOutlineEnabled( is_highlighted );
 		}
 	}
 
@@ -82,12 +78,6 @@ public class FamilyControlScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if( spinning )
-		{
-			houseObject.transform.Rotate( (Vector3.up * 300f) * Time.deltaTime, Space.Self);
-		} else
-		{
-			houseObject.transform.rotation = this.transform.rotation;
-		}
+
 	}
 }

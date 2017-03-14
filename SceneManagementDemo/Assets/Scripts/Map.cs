@@ -93,7 +93,10 @@ namespace Tribal
 				HexControlScript hControl = gameObject.GetComponent<HexControlScript>();
 
 				if( null != hControl )
+				{
 					hControl.SetMapNode( this );
+					Map.Settle(gameObject, 0f);
+				}
 				else
 					Debug.LogError ( "Null HexControlScript on prefab." );
 
@@ -302,6 +305,95 @@ namespace Tribal
 		{
 			foreach( MapNode n in Nodes )
 				n.InstantiatePrefab();
+		}
+
+		public static void SettleMap()
+		{
+			foreach( MapNode n in Nodes )
+				Map.Settle(n.gameObject, 0f);
+		}
+
+		public static void Settle(GameObject obj, float distance_above_terrain = 0f, bool settleChildren = true, bool orientToNormal = false )
+		{
+			const float OFFSET_ABOVE = 100f;
+			RaycastHit hit;
+
+			if( !Physics.Raycast( obj.transform.position + Vector3.up * OFFSET_ABOVE, -Vector3.up, out hit, 300f, (1 << LayerMask.NameToLayer( "Terrain" ) ) ) )
+			{
+				Debug.LogWarning( "Failed to raycast object to terrain." );
+				return;
+			}
+
+			obj.transform.position = (obj.transform.position + Vector3.up * OFFSET_ABOVE) + (-Vector3.up * hit.distance) + (Vector3.up * distance_above_terrain);
+
+			Quaternion rot = Quaternion.FromToRotation( obj.transform.up, hit.normal );
+
+			if( orientToNormal )
+				obj.transform.Rotate( rot.eulerAngles );
+
+			if( !settleChildren ) return;
+
+			foreach( Transform o in obj.gameObject.transform )
+			{
+				switch( o.gameObject.tag )
+				{
+					case "HexOutline":	// Every vertex of the mesh will be settled
+						SettleMesh( o.gameObject );
+					break;
+					case "OffsetSettle": // Move only the distance parent moves
+						
+					break;
+					default:
+					if( !Physics.Raycast( o.position + Vector3.up * OFFSET_ABOVE, -Vector3.up, out hit, 300f, (1 << LayerMask.NameToLayer( "Terrain" ) ) ) )
+						{
+							Debug.LogWarning( "Failed to raycast object to terrain." );
+							return;
+						} else
+						{
+							o.position = (o.position + Vector3.up * OFFSET_ABOVE) + (-Vector3.up * hit.distance) + (Vector3.up * distance_above_terrain);
+
+							if( orientToNormal )
+							{
+								rot = Quaternion.FromToRotation( obj.transform.up, hit.normal );
+								o.transform.Rotate( rot.eulerAngles );
+							}
+						}
+					break;
+				}
+			}
+		}
+
+		private static void SettleMesh( GameObject obj, float distance_above_terrain = 0.02f )
+		{
+			const float OFFSET_ABOVE = 100f;
+
+			RaycastHit hit;
+			MeshFilter meshFilter = obj.gameObject.GetComponent<MeshFilter>();
+
+			if( null == meshFilter )
+			{
+				Debug.LogWarning( "Failed to find mesh filter on gameobject." );
+				return;
+			}
+
+			Mesh mesh = meshFilter.mesh;
+			Vector3[] verts = mesh.vertices;
+			int i = 0;
+
+			while( i < verts.Length )
+			{
+				if( !Physics.Raycast( obj.transform.TransformPoint(verts[i]) + Vector3.up * OFFSET_ABOVE, -Vector3.up, out hit, 300f, (1 << LayerMask.NameToLayer( "Terrain" ) ) ) )
+				{
+					Debug.LogWarning( "Failed to raycast object to terrain." );
+					return;
+				}
+
+				verts[i] = obj.transform.InverseTransformPoint((obj.transform.TransformPoint(verts[i]) + Vector3.up * OFFSET_ABOVE) + (-Vector3.up) * (hit.distance - distance_above_terrain));
+				i++;
+			}
+
+			mesh.vertices = verts;
+			mesh.RecalculateBounds();
 		}
 	}
 }

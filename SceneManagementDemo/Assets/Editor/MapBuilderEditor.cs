@@ -20,6 +20,11 @@ public class MapBuilderEditor : Editor
             myScript.CreateMap();
         }
 
+		if(GUILayout.Button("Settle Map"))
+        {
+            myScript.SettleMap();
+        }
+
 		if(GUILayout.Button("Add Ring"))
         {
             myScript.AddRing();

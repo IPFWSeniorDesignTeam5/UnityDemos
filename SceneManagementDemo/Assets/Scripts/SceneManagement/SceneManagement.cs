@@ -25,7 +25,7 @@ namespace VRSceneManagement
 
 		public static void LoadScene( string newScene )
 		{
-			SceneManager.LoadScene (newScene);
+			SceneManager.LoadScene(newScene);
 		}
 	}
 }

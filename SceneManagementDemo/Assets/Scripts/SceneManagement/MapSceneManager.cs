@@ -5,15 +5,16 @@ using VRSceneManagement;
 
 public class MapSceneManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public GameObject VRCameraPrefab = null;
+
+	void Awake () {
 		Random.InitState (0);
-		VRSceneManager.LoadSceneState( this.GetComponent<MapOverviewState>() );
-		DontDestroyOnLoad( gameObject );
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+        GameObject VRCamera = GameObject.FindGameObjectWithTag("VRGameObject");
+
+        if (null == VRCamera)
+            VRCamera = GameObject.Instantiate(VRCameraPrefab);
+
+        VRSceneManager.LoadSceneState(VRCamera.GetComponent<MapOverviewState>());
 	}
 }

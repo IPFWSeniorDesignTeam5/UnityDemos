@@ -82,6 +82,7 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.VR.xml
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp.pdb
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

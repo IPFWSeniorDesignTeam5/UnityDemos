@@ -31,6 +31,7 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Mo
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Mono.Cecil.Pdb.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Assembly-CSharp-Editor-firstpass.pdb
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Advertisements.xml
@@ -53,3 +54,4 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor.csprojResolveAssemblyReference.cache
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor.pdb
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb

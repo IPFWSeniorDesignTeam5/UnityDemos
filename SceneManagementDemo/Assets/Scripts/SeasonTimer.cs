@@ -16,13 +16,15 @@ namespace Tribal
 
 		static bool paused;
 
-		static float SeasonLength;
+		public static float SeasonLength {get; private set;}
 
 		public delegate void SeasonEndEventListener( SeasonEndEventArgs e );
 
 		public static event SeasonEndEventListener SeasonEndEvent;
 
 		public static SeasonType CurrentSeason { get; private set; }
+
+		public static float SeasonProgress {get{ return seasonTime / SeasonLength; }}
 
 		public class SeasonEndEventArgs : EventArgs
 		{
@@ -74,6 +76,8 @@ namespace Tribal
 
 			old = CurrentSeason;
 			next = (SeasonType)((((int)CurrentSeason) + 1) % 4);
+
+			seasonTime = 0f;
 
 			CurrentSeason = next;
 

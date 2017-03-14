@@ -12,11 +12,23 @@ public class HexControlScript : MonoBehaviour {
 	public event HighlightedEventListener Highlighted;
 	public event HighlightedEventListener Dehighlighted;
 
-	public Light Spotlight;
-
-	public float LightLingerTime = 0.3f;
-
+	private bool highlighted = false;
 	private float lastOnSwitch = 0f;
+	private MeshRenderer OutlineRenderer = null;
+
+	void Awake()
+	{
+		Transform ot = transform.Find( "hex_pad" );
+
+		if( null == ot ) return;
+
+		GameObject outline = ot.gameObject;
+
+		if( null == outline )
+			Debug.LogError("No hex_pad child on hex control script object." );
+
+		OutlineRenderer = outline.GetComponent<MeshRenderer>();
+	}
 
 	public void SetMapNode( MapNode node )
 	{
@@ -27,29 +39,21 @@ public class HexControlScript : MonoBehaviour {
 	{
 		if( isSelected )
 		{
-			if( !Spotlight.enabled && null != Highlighted )
+			if( !highlighted && null != Highlighted )
 				Highlighted();
 		}
 		else
-			if( Spotlight.enabled && null != Dehighlighted )
+			if( highlighted && null != Dehighlighted )
 				Dehighlighted();
 
-		SetSpotlightEnabled( isSelected );
+		highlighted = isSelected;
+		SetOutlineEnabled( isSelected );
 	}
 
-	public void SetSpotlightEnabled( bool isEnabled )
+	public void SetOutlineEnabled( bool isEnabled )
 	{
+		if( null == OutlineRenderer ) return;
 		if( isEnabled ) lastOnSwitch = Time.time;
-		Spotlight.enabled = isEnabled;
-	}
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
+		OutlineRenderer.enabled = isEnabled;
 	}
 }
