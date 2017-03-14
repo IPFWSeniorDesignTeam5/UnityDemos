@@ -119,12 +119,76 @@ namespace Tribal
         public static int CanCreate(List<RawMaterial> mats, FinishedGoodType goodType, int tier)
         {
             // TODO: Given a list of materials, return the number of FinishedGoods of the given tier that COULD BE produced.
+			Dictionary<RawMaterialType, int> requirements = GetProductionRequirements(goodType, tier);
+			int builds = 100000;
+			foreach (RawMaterialType typ in requirements.Keys)
+			{
+				int stock = RawMaterial.GetMaterials(mats, typ);
+				int requiredStock = requirements[typ];
 
-            return 0;
+				int temporary = stock / requiredStock;
+
+				if(runs == null)
+				{
+					runs = temporary;
+				}
+				else if(temporary < runs)
+				{
+					runs = temporary;
+				}
+			}
+			return runs;
         }
 
 
-        /// TODO: Add a public static method that takes a List<RawMaterial> and a FinishedGood, and will upgrade a given finished good to the next tier (reducing the materials from the given raw materials list)
+		public static void Upgrade(List<RawMaterial> mats, FinishedGood subject)
+		{
+			try
+			{
+				Dictionary<RawMaterialType, int> requirements = GetProductionRequirements(goodType, tier);
+
+				List<RawMaterial> matsToMove = new List<RawMaterial>();
+
+				foreach (RawMaterialType typ in requirements.Keys)
+				{
+					List<RawMaterial> hasMats = RawMaterial.GetMaterials(mats, typ);
+					if (null != hasMats && hasMats.Count > 0)
+					{
+						int i = 0;
+
+						requirements.TryGetValue(typ, out i);
+
+						if (hasMats.Count < i)
+							return null;    // Insufficient materials
+
+						for (int j = 0; j < i; j++)
+							matsToMove.Add(hasMats[j]);
+					}
+					else
+						return null; // Insufficient materials
+				}
+
+				if (matsToMove.Count > 0)
+				{
+					foreach (RawMaterial mat in matsToMove)
+					{
+						subject.AddMaterial(mat);
+						mats.Remove(mat);
+					}
+				}
+				else
+					throw new Exception("No materials selected to use for FinishedGood being upgraded.");
+
+			}
+			catch (Exception e)
+			{
+				returnGood = null;
+				Debug.LogError("Exception in Upgrade() (Materials.cs): " + e.Message);
+			}
+
+			subject.Tier++; // grants upgrade
+		}
+
 
         public static FinishedGood CreateFromMaterials(List<RawMaterial> mats, FinishedGoodType goodType, int tier)
         {
