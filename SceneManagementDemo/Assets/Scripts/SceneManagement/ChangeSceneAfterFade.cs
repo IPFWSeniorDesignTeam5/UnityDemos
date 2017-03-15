@@ -17,11 +17,9 @@ public class ChangeSceneAfterFade : MonoBehaviour {
 	void FadeEvent( OVRScreenFade.OVRScreenFadeMode e )
 	{
 		if( e == OVRScreenFade.OVRScreenFadeMode.In )
-			fader.Fade( OVRScreenFade.OVRScreenFadeMode.Out );
-		else
 		{
 			ScreenFader.UnsubscribeToFades(FadeEvent);
-			VRSceneManager.LoadScene(NewScene);
+			VRSceneManager.LoadSceneAsync(NewScene);
 		}
 	}
 }

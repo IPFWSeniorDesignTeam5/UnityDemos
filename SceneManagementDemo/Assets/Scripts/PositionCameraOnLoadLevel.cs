@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PositionCameraOnLoadLevel : MonoBehaviour {
 
+	public float DistanceAbove = 0f;
+
 	// Use this for initialization
 	void Awake () {
 		SceneManager.sceneLoaded += OnLevelFinishedLoading;
@@ -18,6 +20,6 @@ public class PositionCameraOnLoadLevel : MonoBehaviour {
         if( null == cam ) 
 	        Debug.LogError( "Failed to position camera on load level." );
 	    else
-	    	cam.gameObject.transform.position = this.transform.position;
+			cam.gameObject.transform.position = this.transform.position + (Vector3.up * DistanceAbove);
 	}
 }
