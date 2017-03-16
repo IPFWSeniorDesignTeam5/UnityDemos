@@ -8,7 +8,10 @@ namespace Tribal
     {
         public enum SkillType
         {
-            // TODO: Enter all skill types here i.e. Hunting, Gathering, etc.
+            Hunting = 0,
+            Gathering,
+            Farming, 
+            Production
         }
 
         public SkillType Type { get; private set; }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Tribal
 {
-
 	public enum MapNodeType {
 		Barren = 0,
 		SeasonTimer,
@@ -38,7 +37,7 @@ namespace Tribal
 
 			m_Prefab = obj;
 
-			int angle = Random.Range (0, 7);
+			int angle = Community.RandomGen.Next(0, 7);
 
 			m_Position = pos;
 			Sides = new MapNode[6];
@@ -70,11 +69,6 @@ namespace Tribal
 
 				case MapNodeType.Household:
 					m_Prefab = Map.GetFamilyPrefab( variation );
-				break;
-
-				case MapNodeType.SeasonTimer:
-					// TODO: Create separate prefab for season timer
-					m_Prefab = Map.GetRandomDefaultPrefab();
 				break;
 			}
 
@@ -243,7 +237,7 @@ namespace Tribal
 		{
 			if( DefaultPrefabs.Count == 0 ) return null;
 
-			short i = (short)Random.Range( 0f, DefaultPrefabs.Count - 1 );
+			short i = (short)Community.RandomGen.Next( 0, DefaultPrefabs.Count - 1 );
 
 			return DefaultPrefabs[i];
 		}
@@ -338,6 +332,7 @@ namespace Tribal
 				switch( o.gameObject.tag )
 				{
 					case "HexOutline":	// Every vertex of the mesh will be settled
+					case "SettleMesh":
 						SettleMesh( o.gameObject );
 					break;
 					case "OffsetSettle": // Move only the distance parent moves
@@ -354,7 +349,7 @@ namespace Tribal
 
 							if( orientToNormal )
 							{
-								rot = Quaternion.FromToRotation( obj.transform.up, hit.normal );
+								rot = Quaternion.FromToRotation( o.transform.up, hit.normal );
 								o.transform.Rotate( rot.eulerAngles );
 							}
 						}

@@ -7,9 +7,9 @@ namespace Tribal
 		public enum SeasonType
 		{
 			Spring = 1,
-			Summer,
-			Fall,
-			Winter
+			Summer = 2,
+			Fall = 3,
+			Winter = 0
 		}
 
 		static float seasonTime = 0, currentTime = 0, lastUpdate = 0;
@@ -25,6 +25,13 @@ namespace Tribal
 		public static SeasonType CurrentSeason { get; private set; }
 
 		public static float SeasonProgress {get{ return seasonTime / SeasonLength; }}
+
+		static SeasonTimer()
+		{
+			CurrentSeason = SeasonType.Winter;
+			seasonTime = 0f;
+			currentTime = 0f;
+		}
 
 		public class SeasonEndEventArgs : EventArgs
 		{

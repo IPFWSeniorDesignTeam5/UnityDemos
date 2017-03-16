@@ -14,10 +14,21 @@ public class SettleAboveTerrain : MonoBehaviour {
 	void Awake()
 	{
 		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+		SettleMe();
+	}
+
+	void OnDestroy()
+	{
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
 	}
 
 	private void OnLevelFinishedLoading(Scene scn, LoadSceneMode mode )
 	{
-        Map.Settle( this.gameObject, settleDistance, settleChildren, orientToNormal );
+		SettleMe();
+	}
+
+	public void SettleMe()
+	{
+		Map.Settle( this.gameObject, settleDistance, settleChildren, orientToNormal );
 	}
 }

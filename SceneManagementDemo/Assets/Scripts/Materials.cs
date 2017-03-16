@@ -53,19 +53,19 @@ namespace Tribal
             switch (raw)
             {
                 case RawMaterialType.Bone:
-                    return 1;
-                case RawMaterialType.Clay:
                     return 4;
-                case RawMaterialType.Fiber:
+                case RawMaterialType.Clay:
                     return 2;
+                case RawMaterialType.Fiber:
+                    return 3;
                 case RawMaterialType.Shells:
-                    return 8;
+                    return 6;
                 case RawMaterialType.Stone:
-                    return 1;
+                    return 2;
                 case RawMaterialType.Wood:
                     return 3;
                 case RawMaterialType.Skins:
-                    return 2;
+                    return 8;
             }
 
             return 0;
@@ -118,26 +118,27 @@ namespace Tribal
 
         public static int CanCreate(List<RawMaterial> mats, FinishedGoodType goodType, int tier)
         {
-            // TODO: Given a list of materials, return the number of FinishedGoods of the given tier that COULD BE produced.
 			Dictionary<RawMaterialType, int> requirements = GetProductionRequirements(goodType, tier);
-			int builds = 100000;
+			int count = int.MaxValue;
+
 			foreach (RawMaterialType typ in requirements.Keys)
 			{
-				int stock = RawMaterial.GetMaterials(mats, typ);
-				int requiredStock = requirements[typ];
+				int stock = RawMaterial.GetMaterials(mats, typ).Count;
+
+				if( stock == 0 ) return 0;
+
+				int requiredStock = int.MaxValue;
+				requirements.TryGetValue( typ, out requiredStock );
 
 				int temporary = stock / requiredStock;
 
-				if(runs == null)
-				{
-					runs = temporary;
-				}
-				else if(temporary < runs)
-				{
-					runs = temporary;
-				}
+				if(temporary < count)
+					count = temporary;
 			}
-			return runs;
+
+			if( count == int.MaxValue ) return 0;
+
+			return count;
         }
 
 
@@ -145,7 +146,7 @@ namespace Tribal
 		{
 			try
 			{
-				Dictionary<RawMaterialType, int> requirements = GetProductionRequirements(goodType, tier);
+				Dictionary<RawMaterialType, int> requirements = GetProductionRequirements(subject.Type, subject.Tier);
 
 				List<RawMaterial> matsToMove = new List<RawMaterial>();
 
@@ -159,13 +160,13 @@ namespace Tribal
 						requirements.TryGetValue(typ, out i);
 
 						if (hasMats.Count < i)
-							return null;    // Insufficient materials
+							return;    // Insufficient materials
 
 						for (int j = 0; j < i; j++)
 							matsToMove.Add(hasMats[j]);
 					}
 					else
-						return null; // Insufficient materials
+						return; // Insufficient materials
 				}
 
 				if (matsToMove.Count > 0)
@@ -175,6 +176,7 @@ namespace Tribal
 						subject.AddMaterial(mat);
 						mats.Remove(mat);
 					}
+					subject.Tier++;
 				}
 				else
 					throw new Exception("No materials selected to use for FinishedGood being upgraded.");
@@ -182,11 +184,8 @@ namespace Tribal
 			}
 			catch (Exception e)
 			{
-				returnGood = null;
 				Debug.LogError("Exception in Upgrade() (Materials.cs): " + e.Message);
 			}
-
-			subject.Tier++; // grants upgrade
 		}
 
 

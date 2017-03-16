@@ -21,6 +21,8 @@ namespace Tribal
 			SeasonTimer.SeasonEndEvent += SeasonEnded;
 		}
 
+		public static System.Random RandomGen = new System.Random(0);
+
 		public static Family GetFamilyByNode( MapNode n )
 		{
 			return m_Families.Where( x => x.FamilyNodes.Contains(n)).FirstOrDefault();
@@ -34,8 +36,8 @@ namespace Tribal
 
 			do
 			{
-				i = (short)Random.Range( 0, FamilyPreNames.Length - 1 );
-				j = (short)Random.Range( 0, FamilySufNames.Length - 1 );
+				i = (short)RandomGen.Next( 0, FamilyPreNames.Length - 1 );
+				j = (short)RandomGen.Next( 0, FamilySufNames.Length - 1 );
 				newName = FamilyPreNames[i] + FamilySufNames[j];
 				tried ++;
 				if( tried > 50 )

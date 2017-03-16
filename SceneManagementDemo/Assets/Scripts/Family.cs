@@ -6,6 +6,8 @@ namespace Tribal
 {
 	public class Family
 	{
+		private const short STARTING_EXPERIENCE = 100;
+
         public int Population { get; private set; }
 
         public List<RawMaterial> Materials { get; private set;}
@@ -18,16 +20,25 @@ namespace Tribal
 
         public List<TribalEvent> FamilyEvents { get; private set; }
 
-        /// TODO: Add public readonly property: List<Skill> "Skills"
+        public List<Skill> Skills {get; private set;}
 
-        /// TODO: Add public property: Skill "CurrentActivity", when changed check "ActivityStarted" value to calculate
+		public Skill CurrentActivity  {get{ return CurrentActivity; } private set{ CurrentActivity = value; ActivityProgress = 0f; } }
 
-        /// TODO: Add public readonly property: float "Capability", and add it's calculation into the "get" property method. (See tech. document )
+        public float ActivityProgress { get; private set; }
 
-        /// TODO: Add public readonly property: float "Prosperity", and add it's calculation into the "get" property method. (See tech. document)
+        public float Capability { 
+        	get{
+        		return (Skills.Sum( x => x.Experience * 0.1f ) / 100f) * Population;
+        	}
+        }
 
-        /// TODO: Add private property: float "ActivityStarted", to represent percentage of the season that had passed before season was changed.
-
+        public float Prosperity { 
+        	get
+	        {
+	        	return (Capability + TotalWealth) / Population;
+	        }
+        }
+     
         public int TotalWealth
         {
             get
@@ -55,21 +66,47 @@ namespace Tribal
 			FamilyNodes.Add( StartingNode );
 			Materials  = new List<RawMaterial>();;
 			FinishedGoods = new List<FinishedGood>();
+			Skills = new List<Skill>();
 
-            /// TODO: Call "InitializeSkills"
+            InitializeSkills();
 
 			Community.AddFamily( this );
 			SeasonTimer.SeasonEndEvent += FamilySeasonEnd;
 		}
 
-        /// TODO: Add private method "InitializeSkills" to perform the following:
-        // Add to "Skills" list a new skill for each skill type (The skill list should contain the same number of skills as there are skill types)
-        //      Use the following to get the number of skill types : Enum.GetNames( typeof(Skill.SkillType) ).Length
-        //      Start each skill with 10 experience.
-        // Starting with 100 total skill:
-        //     Perform the following twice: 
-        //          Get a random number between 1 and 50 and add that amount of experience to a random skill. 
-        //     Add any remaining skill out of the 100 starting total to a random skill.
+        private void InitializeSkills()
+        {
+        	short totalExp = STARTING_EXPERIENCE;
+        	short skillExp = 0;
+
+        	for(int i = 0; i < Enum.GetNames(typeof(Skill.SkillType)).Length; i++ )
+        	{
+        		Skill.SkillType typ = (Skill.SkillType)i;
+        		Skill newSkill = new Skill(typ);
+				newSkill.AddExperience( 10 );
+				Skills.Add( newSkill );
+        	}
+
+        	for(int i = 0; i < 2; i++ )
+        	{
+				skillExp = (short)Community.RandomGen.Next((int)(totalExp / 2f));
+				Skill s = Skills[Community.RandomGen.Next(Skills.Count)];
+				s.AddExperience( skillExp );
+				totalExp -= skillExp;
+        	}
+
+			for(int i = 0; i < 10; i++ )
+        	{
+				skillExp = (short)Community.RandomGen.Next(totalExp);
+				Skill s = Skills[Community.RandomGen.Next(Skills.Count)];
+				s.AddExperience( skillExp );
+				totalExp -= skillExp;
+				if( totalExp == 0 ) break;
+        	}
+
+        	if( totalExp > 0 )
+				Skills[Community.RandomGen.Next(Skills.Count)].AddExperience( totalExp );
+        }
 
         /// TODO: Add public method "GetSkillValue" that takes a Skill.SkillType as a parameter, and returns this family's experience value of that skill.
 
