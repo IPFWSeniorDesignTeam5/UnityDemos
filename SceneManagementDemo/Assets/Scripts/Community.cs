@@ -14,14 +14,18 @@ namespace Tribal
 
 		public static short StartingFamilySkill{ get; private set; }
 
+		public static float Capability { 
+			get{
+				return m_Families.Sum( x => x.Capability );
+			}
+		}
+
 		static Community()
 		{
 			StartingFamilySkill = 100;
 			m_Families = new List<Family>();
 			SeasonTimer.SeasonEndEvent += SeasonEnded;
 		}
-
-		public static System.Random RandomGen = new System.Random(0);
 
 		public static Family GetFamilyByNode( MapNode n )
 		{
@@ -36,8 +40,8 @@ namespace Tribal
 
 			do
 			{
-				i = (short)RandomGen.Next( 0, FamilyPreNames.Length - 1 );
-				j = (short)RandomGen.Next( 0, FamilySufNames.Length - 1 );
+				i = (short)TribeControl.RandomGen.Next( 0, FamilyPreNames.Length - 1 );
+				j = (short)TribeControl.RandomGen.Next( 0, FamilySufNames.Length - 1 );
 				newName = FamilyPreNames[i] + FamilySufNames[j];
 				tried ++;
 				if( tried > 50 )

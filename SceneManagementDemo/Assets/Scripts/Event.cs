@@ -52,7 +52,7 @@ namespace Tribal
         }
     }
 
-    public delegate void TribalEventListener( List<TribalEvent> EventsOccurred);
+    public delegate void TribalEventListener( List<TribalEvent> EventsOccurred );
 
     /// <summary>
     /// Tribal Events apply status modifications to individual families or the entire community (effectively applying the modifier each family.)
@@ -61,7 +61,7 @@ namespace Tribal
     {
         public string Description { get; private set; }
 
-        public int SeasonsAffected { get; private set; }
+        public int SeasonsAffected { get; set; }
 
         public List<StatusModifier> StatusModifiers { get; private set; }
 

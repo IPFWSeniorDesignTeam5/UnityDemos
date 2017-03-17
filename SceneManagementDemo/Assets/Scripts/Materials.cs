@@ -14,7 +14,8 @@ namespace Tribal
         Shells,
         Stone, 
         Wood,
-        Skins
+        Skins,
+        Food
 	}
 
 	public enum FinishedGoodType

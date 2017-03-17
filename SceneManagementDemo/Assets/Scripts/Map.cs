@@ -37,7 +37,7 @@ namespace Tribal
 
 			m_Prefab = obj;
 
-			int angle = Community.RandomGen.Next(0, 7);
+			int angle = TribeControl.RandomGen.Next(0, 7);
 
 			m_Position = pos;
 			Sides = new MapNode[6];
@@ -237,7 +237,7 @@ namespace Tribal
 		{
 			if( DefaultPrefabs.Count == 0 ) return null;
 
-			short i = (short)Community.RandomGen.Next( 0, DefaultPrefabs.Count - 1 );
+			short i = (short)TribeControl.RandomGen.Next( 0, DefaultPrefabs.Count - 1 );
 
 			return DefaultPrefabs[i];
 		}
