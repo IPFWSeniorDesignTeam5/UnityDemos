@@ -91,8 +91,13 @@ namespace Tribal
 				if( limitTime ) raycastTime = 0f;
 
 				PointerEventData ped = new PointerEventData(EventSystem.current);
-				ped.position = new Vector2( UnityEngine.VR.VRSettings.eyeTextureWidth / 2, UnityEngine.VR.VRSettings.eyeTextureHeight / 2 );
-				ped.delta = Vector2.zero;
+
+				#if UNITY_EDITOR
+					ped.position = new Vector2( Screen.width / 2, Screen.height / 2 );
+				#else
+					ped.position = new Vector2( UnityEngine.VR.VRSettings.eyeTextureWidth / 2, UnityEngine.VR.VRSettings.eyeTextureHeight / 2 );
+					ped.delta = Vector2.zero;
+				#endif
 				List<RaycastResult> results = new List<RaycastResult>();
 				EventSystem.current.RaycastAll( ped, results );
 

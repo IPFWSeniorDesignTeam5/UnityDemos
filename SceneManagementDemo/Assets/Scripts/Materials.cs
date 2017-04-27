@@ -28,6 +28,42 @@ namespace Tribal
         Fire
 	}
 
+	public static class TribalAssets
+	{
+		private static Dictionary<string, RawMaterialType> m_MaterialDictionary = new Dictionary<string, RawMaterialType>();
+		private static Dictionary<string, FinishedGoodType> m_GoodsDictionary = new Dictionary<string, FinishedGoodType>();
+
+		public static Dictionary<string, RawMaterialType> MaterialDictionary {
+			get{
+				if( m_MaterialDictionary.Count == 0 )
+				{
+					string [] matNames = Enum.GetNames( typeof(RawMaterialType) );
+					for( short i = 0; i < matNames.Length; i++ )
+					{
+						m_MaterialDictionary.Add( matNames[i], (RawMaterialType)i );
+					}
+				}
+				return m_MaterialDictionary;
+			}
+			private set{}
+		}
+
+		public static Dictionary<string, FinishedGoodType> GoodsDictionary {
+			get{
+				if( m_GoodsDictionary.Count == 0 )
+				{
+					string [] goodNames = Enum.GetNames( typeof(FinishedGoodType) );
+					for( short i = 0; i < goodNames.Length; i++ )
+					{
+						m_GoodsDictionary.Add( goodNames[i], (FinishedGoodType)i );
+					}
+				}
+				return m_GoodsDictionary;
+			}
+			private set{}
+		}
+	}
+
 	public class RawMaterial  {
         public RawMaterialType Type { get; private set; }
 
@@ -46,6 +82,8 @@ namespace Tribal
 		/// <param name="typ">Given type to search for.</param>
 		public static List<RawMaterial> GetMaterials( List<RawMaterial> mats, RawMaterialType typ )
 		{
+			if( mats.Count == 0 ) return null;
+
             return (List<RawMaterial>)mats.Where(x => x.Type == typ);
 		}
 

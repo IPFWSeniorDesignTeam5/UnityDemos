@@ -13,7 +13,9 @@ public class MapBuilderScript : MonoBehaviour {
 	public void CreateMap()
 	{
 		Map.RenderMap();
-		Map.SettleMap();
+
+		if( Map.AutoSettle )
+			Map.SettleMap();	
 	}
 
 	public void AddRing()

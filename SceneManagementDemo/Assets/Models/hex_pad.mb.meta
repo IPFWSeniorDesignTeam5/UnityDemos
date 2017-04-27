@@ -9,20 +9,25 @@ ModelImporter:
     100002: left
     100004: polySurface2
     100006: HexOutline
+    100008: hex_pad
     400000: //RootNode
     400002: left
     400004: polySurface2
     400006: HexOutline
+    400008: hex_pad
     2300000: //RootNode
     2300002: polySurface2
     2300004: HexOutline
+    2300006: hex_pad
     3300000: //RootNode
     3300002: polySurface2
     3300004: HexOutline
+    3300006: hex_pad
     4300000: pCylinder1
     4300002: pCylinder3
     4300004: polySurface2
     4300006: HexOutline
+    4300008: hex_pad
     9500000: //RootNode
   materials:
     importMaterials: 1

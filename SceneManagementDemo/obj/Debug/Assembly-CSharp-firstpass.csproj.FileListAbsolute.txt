@@ -5,7 +5,6 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.HoloLens.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Networking.dll
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.UI.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.VR.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Mono.Cecil.dll
@@ -20,10 +19,13 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.UI.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Networking.xml
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.VR.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-firstpass.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\nunit.framework.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\nunit.framework.xml

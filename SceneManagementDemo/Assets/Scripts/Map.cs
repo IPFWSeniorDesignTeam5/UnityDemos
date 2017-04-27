@@ -89,7 +89,9 @@ namespace Tribal
 				if( null != hControl )
 				{
 					hControl.SetMapNode( this );
-					Map.Settle(gameObject, 0f);
+
+					if( Map.AutoSettle )
+						Map.Settle(gameObject, Map.DefaultSettleHeight);
 				}
 				else
 					Debug.LogError ( "Null HexControlScript on prefab." );
@@ -210,10 +212,17 @@ namespace Tribal
 		private static List<GameObject> DefaultPrefabs  = new List<GameObject>();
 		private static List<GameObject> FamilyPrefabs = new List<GameObject>();
 
+		public const float DefaultSettleHeight = 0.2f;
+
 		public static MapNode m_CenterNode { get; private set;}
+
+		public static bool AutoSettle = true;
+
+		public static bool ForceHexOutlines{ get; private set; }
 
 		static Map ()
 		{
+			ForceHexOutlines = false;
 			Nodes = new List<MapNode>();
 		}
 
@@ -257,6 +266,21 @@ namespace Tribal
 			}
 
 			return FamilyPrefabs[homeLevel];
+		}
+
+		public static void ShowHexOutlines( bool showOutlines )
+		{
+			HexControlScript hexRef = null;
+
+			foreach( var node in Nodes )
+			{
+				if( null == node.gameObject ) continue;
+				hexRef = node.gameObject.GetComponent<HexControlScript>();
+				if( null != hexRef )
+					hexRef.SetOutlineEnabled(showOutlines);
+			}
+
+			ForceHexOutlines = showOutlines;
 		}
 
 		public static void Expand( short addRings )
@@ -304,7 +328,7 @@ namespace Tribal
 		public static void SettleMap()
 		{
 			foreach( MapNode n in Nodes )
-				Map.Settle(n.gameObject, 0f);
+				Map.Settle(n.gameObject, DefaultSettleHeight);
 		}
 
 		public static void Settle(GameObject obj, float distance_above_terrain = 0f, bool settleChildren = true, bool orientToNormal = false )
@@ -332,8 +356,10 @@ namespace Tribal
 				switch( o.gameObject.tag )
 				{
 					case "HexOutline":	// Every vertex of the mesh will be settled
+						SettleMesh( o.gameObject, distance_above_terrain + 0.03f );
+					break;
 					case "SettleMesh":
-						SettleMesh( o.gameObject );
+						SettleMesh( o.gameObject, distance_above_terrain );
 					break;
 					case "OffsetSettle": // Move only the distance parent moves
 						

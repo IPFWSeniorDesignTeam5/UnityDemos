@@ -6,9 +6,29 @@ using Tribal;
 
 public class SeasonTimerControlScript : MonoBehaviour {
 
-	GameObject Sunlight = null;
+	GameObject SunlightObject = null;
+	GameObject Stars = null;
 
 	public int SeasonLengthSeconds = 10;
+
+	public Gradient nightDayColor;
+
+	public float maxIntensity = 3f;
+	public float minIntensity = 0f;
+	public float minPoint = -0.2f;
+
+	public float dayMaxAmbient = 1f;
+	public float dayMinAmbient = 0f;
+	public float nightMaxAmbient = 1f;
+	public float nightMinAmbient = 0f;
+	public float ambientPoint = -0.2f;
+
+	public Gradient nightDayFogColor;
+	public AnimationCurve fogDensityCurve;
+	public float fogScale = 1f;
+
+	public float dayAtmosphereThickness = 0.4f;
+	public float nightAtmosphereThickness = 0.87f;
 
 	public Texture2D[] SummerTextures;
 	public Texture2D[] SpringTextures;
@@ -17,6 +37,10 @@ public class SeasonTimerControlScript : MonoBehaviour {
 
 	public Material[] FallLeavesMaterials;
 
+	Skybox sky;
+	Material skyMat;
+	Light sunLight;
+
 	private int SeasonLength {
 								get {return (int)SeasonTimer.SeasonLength;} 
 								set { 	SeasonTimer.SetSeasonLength(value); }
@@ -24,13 +48,20 @@ public class SeasonTimerControlScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		Sunlight = GameObject.FindGameObjectWithTag( "Sun" );
+		SunlightObject = GameObject.FindGameObjectWithTag( "Sun" );
+		Stars = GameObject.FindGameObjectWithTag( "Stars" );
 
-		if( null == Sunlight )
+		if( null == SunlightObject )
 			Debug.LogWarning( "Failed to find light marked with tag 'Sun'." );
+		else
+		{
+			sunLight = SunlightObject.GetComponentInChildren<Light>();
+			SunlightObject = sunLight.transform.gameObject;
+		}
+
+		skyMat = RenderSettings.skybox;
 
 		SeasonLength = SeasonLengthSeconds;
-
 		SeasonTimer.SeasonEndEvent += SeasonEnd;
 	}
 
@@ -41,9 +72,42 @@ public class SeasonTimerControlScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		float tRange = 1 - minPoint;
+		float dot = Mathf.Clamp01((Vector3.Dot(sunLight.transform.forward, Vector3.down) - minPoint) / tRange);
+		float i = ((maxIntensity - minIntensity) * dot) + minIntensity;
+
+		sunLight.intensity = i;
+		sunLight.color = nightDayColor.Evaluate(dot);
+
+		RenderSettings.ambientLight = sunLight.color;
+
+		RenderSettings.fogColor = nightDayFogColor.Evaluate(dot);
+		RenderSettings.fogDensity = fogDensityCurve.Evaluate(dot) * fogScale;
+
+		tRange = 1 - ambientPoint;
+		float amb = (Vector3.Dot(sunLight.transform.forward, Vector3.down) - ambientPoint);
+		if( amb >= 0 )
+		{
+			dot = Mathf.Clamp01( amb / tRange);
+			i = ((dayMaxAmbient - dayMinAmbient) * dot) + dayMinAmbient;
+		} else
+		{
+			dot = Mathf.Clamp01( -amb / tRange);
+			i = ((nightMaxAmbient - nightMinAmbient) * dot) + nightMinAmbient;
+		}
+
+		RenderSettings.ambientIntensity = i;
+
+		i = ((dayAtmosphereThickness - nightAtmosphereThickness) * dot) + nightAtmosphereThickness;
+		skyMat.SetFloat( "_AtmosphereThickness", i);
+
 		SeasonTimer.Update( Time.time );
-		float angleY = 90 * ((((int)SeasonTimer.CurrentSeason))-1) + (SeasonTimer.SeasonProgress * 90f);
-		Sunlight.transform.eulerAngles = new Vector3( Sunlight.transform.eulerAngles.x, angleY, Sunlight.transform.eulerAngles.z );
+		float angleX = (360 * SeasonTimer.SeasonProgress);
+
+		SunlightObject.transform.eulerAngles = new Vector3( angleX, 0, 0 );
+
+		if( null != Stars )
+			Stars.transform.rotation = SunlightObject.transform.rotation;
 	}
 
 	void SeasonEnd( SeasonTimer.SeasonEndEventArgs e )
@@ -85,6 +149,7 @@ public class SeasonTimerControlScript : MonoBehaviour {
 
 			if( newTextures == null ) return;
 
+			/*
 			SplatPrototype[] splatPrototype = new SplatPrototype[newTextures.Length];
 			for (int i = 0; i < terrainData.splatPrototypes.Length; i++)
 		    {
@@ -94,6 +159,7 @@ public class SeasonTimerControlScript : MonoBehaviour {
 		        splatPrototype[i].tileOffset = new Vector2(terrainData.splatPrototypes[0].tileOffset.x, terrainData.splatPrototypes[0].tileOffset.y);    //Sets the size of the texture
 		    }
 		    terrainData.splatPrototypes = splatPrototype;
+		    */
 		}
 
 		AudioSource s = GetComponent<AudioSource>();

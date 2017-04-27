@@ -7,6 +7,8 @@ public class HexControlScript : MonoBehaviour {
 
 	public MapNode HexMapNode { get; private set; }
 
+	public Material primarySelected, secondarySelected;
+
 	public delegate void HighlightedEventListener();
 
 	public event HighlightedEventListener Highlighted;
@@ -18,7 +20,7 @@ public class HexControlScript : MonoBehaviour {
 
 	void Awake()
 	{
-		Transform ot = transform.Find( "hex_pad" );
+		Transform ot = transform.Find( "hex_outline" );
 
 		if( null == ot ) return;
 
@@ -47,13 +49,20 @@ public class HexControlScript : MonoBehaviour {
 				Dehighlighted();
 
 		highlighted = isSelected;
-		SetOutlineEnabled( isSelected );
+		SetOutlineEnabled( isSelected, true );
 	}
 
-	public void SetOutlineEnabled( bool isEnabled )
+	public void SetOutlineEnabled( bool isEnabled, bool isPrimary = false )
 	{
 		if( null == OutlineRenderer ) return;
+
 		if( isEnabled ) lastOnSwitch = Time.time;
+
+		if( isPrimary )
+			OutlineRenderer.sharedMaterial = primarySelected;
+		else
+			OutlineRenderer.sharedMaterial = secondarySelected;
+
 		OutlineRenderer.enabled = isEnabled;
 	}
 }

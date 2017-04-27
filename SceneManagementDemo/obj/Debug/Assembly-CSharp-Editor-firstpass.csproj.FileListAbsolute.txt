@@ -5,11 +5,9 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Analytics.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Android.Extensions.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.dll
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.EditorTestsRunner.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Graphs.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.HoloLens.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Networking.dll
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.PlaymodeTestsRunner.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.TreeEditor.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.UI.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.VR.dll
@@ -18,7 +16,6 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.HoloLens.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Networking.dll
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.UI.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.VR.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Mono.Cecil.dll
@@ -35,13 +32,10 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Advertisements.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\nunit.framework.xml
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.EditorTestsRunner.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.UI.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.UI.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Networking.xml
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.PlaymodeTestsRunner.xml
-C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.PlaymodeTestsRunner.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.TreeEditor.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.Analytics.xml
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Analytics.xml
@@ -53,3 +47,11 @@ C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\Un
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor-firstpass.csprojResolveAssemblyReference.cache
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor-firstpass.dll
 C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Purchasing.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.TestRunner.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.TestRunner.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.TestRunner.xml
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEngine.TestRunner.xml
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\UnityEditor.Purchasing.xml
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+C:\Users\DanJa\Documents\GitHub\UnityDemos\SceneManagementDemo\Temp\bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll

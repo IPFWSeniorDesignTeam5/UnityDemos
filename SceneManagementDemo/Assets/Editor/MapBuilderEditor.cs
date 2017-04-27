@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEditor;
 
+using Tribal;
+
 [CustomEditor(typeof(MapBuilderScript))]
 public class MapBuilderEditor : Editor
 {
@@ -10,6 +12,13 @@ public class MapBuilderEditor : Editor
         DrawDefaultInspector();
         
 		MapBuilderScript myScript = (MapBuilderScript)target;
+
+		if(GUILayout.Toggle(Map.ForceHexOutlines, "Show Hex Outlines"))
+		{
+			Map.ShowHexOutlines( true );
+		} else
+			Map.ShowHexOutlines( false );
+
         if(GUILayout.Button("Destroy Map"))
         {
             myScript.DestroyMap();

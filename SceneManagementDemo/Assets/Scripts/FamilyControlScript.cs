@@ -13,9 +13,14 @@ public class FamilyControlScript : MonoBehaviour {
 
 	HexControlScript HexControl = null;
 
-	public GameObject houseObject = null;
+	GameObject currentDetail;
 
-	public Text NameText, ActivityText, StatsText, GoodsText;
+	public Transform detailPosition;
+
+	public GameObject FarmingActivityDetail;
+	public GameObject HuntingActivityDetail;
+	public GameObject GatheringActivityDetail;
+	public GameObject ProductionActivityDetail;
 
 	private Skill.SkillType Activity;
 
@@ -25,9 +30,12 @@ public class FamilyControlScript : MonoBehaviour {
 		}
 		set
 		{ 
+			if( null != currentDetail )
+				Destroy(currentDetail);
+
 			Activity = value;
 			ActivityProgress = 0f; 
-			UpdateActivityIcon();
+			UpdateActivity();
 		} 
 	}
 
@@ -40,7 +48,6 @@ public class FamilyControlScript : MonoBehaviour {
 		if( null != fam )
 		{
 			FamilyInfo = fam;
-			NameText.text = fam.FamilyName;
 		}
 	}
 
@@ -50,10 +57,7 @@ public class FamilyControlScript : MonoBehaviour {
 		HexControl.Highlighted += Highlighted;
 		HexControl.Dehighlighted += Dehighlighted;
 
-		UpdateActivityIcon();
-
-		if( null == houseObject )
-			Debug.LogError( "Null house object on FamilyControlScript." );
+		UpdateActivity();
 	}
 
 	public void Highlighted()
@@ -74,69 +78,32 @@ public class FamilyControlScript : MonoBehaviour {
 		{
 			hControl = n.gameObject.GetComponent<HexControlScript>();
 
-			if( n == FamilyInfo.StartingNode )
-				hControl.gameObject.GetComponent<FamilyControlScript>().SetTextVisible( is_highlighted );
-
 			if( null != hControl )
 				hControl.SetOutlineEnabled( is_highlighted );
 		}
 	}
 
-	private void UpdateStatsText()
-	{
-		if( null == StatsText ) {
-			Debug.LogError( "Null stats text object." );
-			return;
-		}
-
-		StatsText.text = "Population: " + Math.Round(FamilyInfo.Population);
-		StatsText.text += "\nCapability: " + Math.Round(FamilyInfo.Capability,2);
-		StatsText.text += "\nProsperity: " + Math.Round(FamilyInfo.Prosperity, 2);
-
-		bool first = true;
-		string line = "";
-
-		foreach( RawMaterialType typ in Enum.GetValues(typeof(RawMaterialType)) )
-		{
-			line = Enum.GetName( typeof(RawMaterialType), typ ) + ": [" + FamilyInfo.RawMaterialCount( typ ) + "]";
-			if( first )  {
-				GoodsText.text = line;
-				first = false;
-			} else
-				GoodsText.text += "\n" + line;
-		}
-	}
-
-	private void UpdateActivityIcon()
+	private void UpdateActivity()
 	{
 		switch( CurrentActivity )
 		{
 			case Skill.SkillType.None:
-				ActivityText.text = "ø";
-				ActivityText.color = Color.red;
+				
 			break;
 			case Skill.SkillType.Farming:
-				ActivityText.text = "F";
-				ActivityText.color = Color.white;
+			currentDetail = GameObject.Instantiate( FarmingActivityDetail, detailPosition.position, detailPosition.rotation, this.transform );
 			break;
 			case Skill.SkillType.Production:
-				ActivityText.text = "P";
-				ActivityText.color = Color.white;
+				if( null != ProductionActivityDetail )
+				currentDetail = GameObject.Instantiate( ProductionActivityDetail, detailPosition.position, detailPosition.rotation, this.transform );
 			break;
 			case Skill.SkillType.Hunting:
-				ActivityText.text = "H";
-				ActivityText.color = Color.white;
+			currentDetail = GameObject.Instantiate( HuntingActivityDetail, detailPosition.position, detailPosition.rotation, this.transform );
 			break;
 			case Skill.SkillType.Gathering:
-				ActivityText.text = "G";
-				ActivityText.color = Color.white;
+			currentDetail = GameObject.Instantiate( GatheringActivityDetail, detailPosition.position, detailPosition.rotation, this.transform );
 			break;
 		}
-	}
-
-	public void SetTextVisible( bool vis )
-	{
-		NameText.enabled = vis;
 	}
 
 	// Use this for initialization
@@ -146,7 +113,7 @@ public class FamilyControlScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if( null != FamilyInfo && null != HexControl && FamilyInfo.StartingNode == HexControl.HexMapNode )	// I'm a main node
-			UpdateStatsText();
+		//if( null != FamilyInfo && null != HexControl && FamilyInfo.StartingNode == HexControl.HexMapNode )	// I'm a main node
+		//	UpdateStatsText();
 	}
 }
